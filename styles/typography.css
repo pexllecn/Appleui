@@ -1,0 +1,108 @@
+/* ------------------------------------------------------------------
+ * typography.css — Apple's text styles as utilities.
+ *
+ * Apple ships two optical sizes: SF Pro Text below 20px and SF Pro Display
+ * at and above it, the latter tracked tighter. The scale in theme.css encodes
+ * that; these classes give each style a single name.
+ * ------------------------------------------------------------------ */
+
+@utility text-style-display-lg {
+  font-size: var(--text-display-lg);
+  line-height: var(--text-display-lg--line-height);
+  letter-spacing: var(--text-display-lg--letter-spacing);
+  font-weight: 700;
+}
+
+@utility text-style-display {
+  font-size: var(--text-display);
+  line-height: var(--text-display--line-height);
+  letter-spacing: var(--text-display--letter-spacing);
+  font-weight: 700;
+}
+
+@utility text-style-large-title {
+  font-size: var(--text-large-title);
+  line-height: var(--text-large-title--line-height);
+  letter-spacing: var(--text-large-title--letter-spacing);
+  font-weight: 700;
+}
+
+@utility text-style-title1 {
+  font-size: var(--text-title1);
+  line-height: var(--text-title1--line-height);
+  letter-spacing: var(--text-title1--letter-spacing);
+  font-weight: 700;
+}
+
+@utility text-style-title2 {
+  font-size: var(--text-title2);
+  line-height: var(--text-title2--line-height);
+  letter-spacing: var(--text-title2--letter-spacing);
+  font-weight: 600;
+}
+
+@utility text-style-title3 {
+  font-size: var(--text-title3);
+  line-height: var(--text-title3--line-height);
+  letter-spacing: var(--text-title3--letter-spacing);
+  font-weight: 600;
+}
+
+@utility text-style-headline {
+  font-size: var(--text-headline);
+  line-height: var(--text-headline--line-height);
+  letter-spacing: var(--text-headline--letter-spacing);
+  font-weight: 600;
+}
+
+@utility text-style-body {
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
+  letter-spacing: var(--text-body--letter-spacing);
+  font-weight: 400;
+}
+
+@utility text-style-callout {
+  font-size: var(--text-callout);
+  line-height: var(--text-callout--line-height);
+  letter-spacing: var(--text-callout--letter-spacing);
+}
+
+@utility text-style-subheadline {
+  font-size: var(--text-subheadline);
+  line-height: var(--text-subheadline--line-height);
+  letter-spacing: var(--text-subheadline--letter-spacing);
+}
+
+@utility text-style-footnote {
+  font-size: var(--text-footnote);
+  line-height: var(--text-footnote--line-height);
+  letter-spacing: var(--text-footnote--letter-spacing);
+}
+
+@utility text-style-caption1 {
+  font-size: var(--text-caption1);
+  line-height: var(--text-caption1--line-height);
+  letter-spacing: var(--text-caption1--letter-spacing);
+}
+
+@utility text-style-caption2 {
+  font-size: var(--text-caption2);
+  line-height: var(--text-caption2--line-height);
+  letter-spacing: var(--text-caption2--letter-spacing);
+}
+
+/* Numerals that don't jitter as a metric ticks up. */
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Apple's small all-caps section headers. */
+@utility text-style-eyebrow {
+  font-size: var(--text-caption2);
+  line-height: var(--text-caption2--line-height);
+  letter-spacing: var(--tracking-widest);
+  font-weight: 590;
+  text-transform: uppercase;
+}
