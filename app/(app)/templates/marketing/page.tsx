@@ -216,15 +216,19 @@ export default function MarketingPage() {
           </CardBody>
         </Card>
 
-        <Card className="p-2">
+        <Card className="@container p-2">
           <Tabs defaultSelectedKey="channels">
             <div className="flex items-center justify-between gap-3 px-3 pt-2">
-              <TabList aria-label="Sessions breakdown" className="min-w-0 flex-1 gap-4 border-0">
+              <TabList aria-label="Sessions breakdown" className="min-w-0 flex-1 gap-3.5 border-0">
                 <Tab id="channels">Channels</Tab>
                 <Tab id="campaigns">Campaigns</Tab>
                 <Tab id="pages">Landing pages</Tab>
               </TabList>
-              <span className="text-style-eyebrow text-fg-tertiary shrink-0 pb-2.5">Sessions</span>
+              {/* The tab row is tight in a third-width card; drop the column label
+                  rather than clip a tab name. */}
+              <span className="text-style-eyebrow text-fg-tertiary shrink-0 pb-2.5 pl-2 @max-[27rem]:hidden">
+                Sessions
+              </span>
             </div>
 
             {(

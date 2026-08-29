@@ -165,8 +165,8 @@ export interface Ring {
 export function ActivityRings({
   rings,
   size = 200,
-  thickness = 11,
-  gapBetween = 3.5,
+  thickness = 9,
+  gapBetween = 4,
   className,
 }: {
   rings: Ring[]
