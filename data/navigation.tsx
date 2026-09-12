@@ -5,6 +5,7 @@ import {
   RiFolderLine,
   RiHome5Line,
   RiInboxLine,
+  RiLayoutGridLine,
   RiMegaphoneLine,
   RiPulseLine,
   RiSettings3Line,
@@ -32,6 +33,7 @@ export const primaryNav: NavItem[] = [
   { label: "HR Team", href: "/templates/hr-team", icon: RiTeamLine },
   { label: "Profile", href: "/templates/profile", icon: RiEmotionLine, built: true },
   { label: "Inbox", href: "/templates/inbox", icon: RiInboxLine, badge: 91 },
+  { label: "Screens", href: "/screens", icon: RiLayoutGridLine, built: true },
 ]
 
 export const secondaryNav: NavItem[] = [

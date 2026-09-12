@@ -1,7 +1,7 @@
 "use client"
 
 import { useId, useState } from "react"
-import { equalTicks, linePath, scaleX, scaleY, smoothPath, VB, type Point } from "./geometry"
+import { equalTicks, linePath, niceTicks, scaleX, scaleY, smoothPath, VB, type Point } from "./geometry"
 import { cx } from "@/utils/cx"
 
 export interface Series {
@@ -16,17 +16,30 @@ export function AreaChart({
   series,
   labels,
   stacked = false,
+  fill = true,
   formatValue = (n: number) => n.toLocaleString(),
   height = 220,
   showAxis = true,
+  showLabels = true,
+  axis = "equal",
   className,
 }: {
   series: Series[]
   labels: string[]
   stacked?: boolean
+  /** Off for a pure line chart: two trend lines compared against each other
+   * read better without two washes of colour competing underneath them. */
+  fill?: boolean
   formatValue?: (n: number) => string
   height?: number
   showAxis?: boolean
+  /** Off when the caller labels the x axis itself — a 30-point series wants
+   * four dates under it, not thirty. */
+  showLabels?: boolean
+  /** `equal` divides 0…max evenly, so the top gridline lands on the peak.
+   * `nice` rounds the ticks instead — what a currency axis wants, where
+   * “$26k” is a worse label than “$40k” even if it is more precise. */
+  axis?: "equal" | "nice"
   className?: string
 }) {
   const gradientId = useId()
@@ -41,8 +54,8 @@ export function AreaChart({
   }
 
   const max = Math.max(...cumulative.flat(), 0)
-  const top = max * 1.04 || 1
-  const ticks = equalTicks(max, 3)
+  const ticks = axis === "nice" ? niceTicks(0, max, 2) : equalTicks(max, 3)
+  const top = Math.max(max * 1.04, ticks[ticks.length - 1]) || 1
 
   const toPoints = (values: number[]): Point[] =>
     values.map((v, i) => ({ x: scaleX(i, values.length), y: scaleY(v, 0, top, 4, 0) }))
@@ -110,10 +123,12 @@ export function AreaChart({
               const points = toPoints(values)
               return (
                 <g key={series[i].name}>
-                  <path
-                    d={stacked ? bandPath(i) : `${smoothPath(points)} L${points[points.length - 1].x},${VB.h} L${points[0].x},${VB.h} Z`}
-                    fill={`url(#${gradientId}-${i})`}
-                  />
+                  {fill ? (
+                    <path
+                      d={stacked ? bandPath(i) : `${smoothPath(points)} L${points[points.length - 1].x},${VB.h} L${points[0].x},${VB.h} Z`}
+                      fill={`url(#${gradientId}-${i})`}
+                    />
+                  ) : null}
                   <path
                     d={smoothPath(points)}
                     fill="none"
@@ -192,7 +207,7 @@ export function AreaChart({
           ) : null}
         </div>
 
-        {showAxis ? (
+        {showAxis && showLabels ? (
           <div className="text-fg-tertiary mt-2 flex justify-between text-caption2">
             {labels.map((label, i) => (
               <span key={label + i} className={cx(hover === i && "text-fg font-medium")}>

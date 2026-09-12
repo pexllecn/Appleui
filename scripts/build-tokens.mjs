@@ -83,6 +83,10 @@ const css = `/* ----------------------------------------------------------------
  * Layer 2  @theme inline  semantic tokens, mapped to runtime variables
  * Layer 3  :root          semantic values, light appearance
  * Layer 4  .dark          semantic values, dark appearance
+ *
+ * Layers 3 and 4 are each emitted twice: once for the document (:root / .dark)
+ * and once for a scoped class (.appearance-light / .appearance-dark) so a single
+ * page can host a light window and a dark one side by side.
  * ------------------------------------------------------------------ */
 
 @theme {
@@ -257,7 +261,8 @@ ${count(`  --color-bg: var(--ui-bg);
 }
 
 /* ---- Light appearance ------------------------------------------------ */
-:root {
+:root,
+.appearance-light {
   color-scheme: light;
 
 ${count(`  /* Backgrounds — Apple grouped-background hierarchy */
@@ -334,7 +339,8 @@ ${count(`  /* Backgrounds — Apple grouped-background hierarchy */
 }
 
 /* ---- Dark appearance ------------------------------------------------- */
-.dark {
+.dark,
+.appearance-dark {
   color-scheme: dark;
 
 ${count(`  --ui-bg: #000000;

@@ -1,4 +1,35 @@
-import { twMerge } from "tailwind-merge"
+import { extendTailwindMerge } from "tailwind-merge"
+
+/** Apple's text styles are named, not sized — `text-footnote`, not `text-sm`.
+ * tailwind-merge can't know that, so out of the box it reads every one of them
+ * as a text *colour* and lets it win over the colour class beside it: write
+ * `text-fg text-footnote` and the ink silently disappears. Registering the
+ * scale as font sizes puts each class back in its own group. */
+const TEXT_STYLES = [
+  "caption2",
+  "caption1",
+  "footnote",
+  "subheadline",
+  "callout",
+  "body",
+  "headline",
+  "title3",
+  "title2",
+  "title1",
+  "large-title",
+  "display",
+  "display-lg",
+]
+
+const twMerge = extendTailwindMerge({
+  extend: {
+    classGroups: {
+      "font-size": [
+        { text: [...TEXT_STYLES, ...TEXT_STYLES.map((style) => `style-${style}`)] },
+      ],
+    },
+  },
+})
 
 type ClassValue = string | number | null | false | undefined | ClassValue[]
 

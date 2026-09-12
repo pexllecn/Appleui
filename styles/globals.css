@@ -2,7 +2,11 @@
 @import "./theme.css";
 @import "./typography.css";
 
-@custom-variant dark (&:where(.dark, .dark *));
+/* `dark:` follows the document appearance (.dark on <html>) and the scoped one
+ * (.appearance-dark), and is switched back off inside .appearance-light — that
+ * is what lets a light window sit on a dark page. Scoped appearances are not
+ * nested inside one another. */
+@custom-variant dark (&:where(.dark, .dark *, .appearance-dark, .appearance-dark *):not(:where(.appearance-light, .appearance-light *)));
 
 /* react-aria-components reports state through data attributes rather than CSS
  * pseudo-classes, so Tailwind needs to be told about them. Without these the

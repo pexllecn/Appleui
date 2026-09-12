@@ -8,6 +8,7 @@ import {
   RiMegaphoneLine,
   RiPaletteLine,
   RiPulseLine,
+  RiWindow2Line,
 } from "@remixicon/react"
 import palette from "@/data/palette.json"
 import { Card } from "@/components/ui/card"
@@ -59,6 +60,12 @@ const REFERENCE = [
     icon: RiLayoutGridLine,
     title: "Components",
     blurb: "Every primitive and chart, interactive.",
+  },
+  {
+    href: "/screens",
+    icon: RiWindow2Line,
+    title: "Screens",
+    blurb: "Five reference layouts rebuilt on the system's own tokens — settings, analytics, mobile.",
   },
 ]
 

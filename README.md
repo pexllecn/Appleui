@@ -18,9 +18,26 @@ reproduces Apple's value exactly.
 | `/templates/calendar` | Month grid with event chips and an event-detail popover |
 | `/templates/profile` | Cover, stat tiles, activity heatmap, agents chart, activity feed |
 | `/templates/medical-report` | Patient card, steps, sleep donut, per-day activity rings, alerts, patients table |
+| `/screens` | Five reference layouts rebuilt on the system — see [DESIGN-LANGUAGE.md](DESIGN-LANGUAGE.md) |
 
 Nav entries without a template of their own (`Finance`, `Projects`, `HR Team`, `Inbox`) resolve to
 a designed empty state rather than a 404, so the sidebar stays honest about what exists.
+
+## Screens
+
+`/screens` recreates five reference designs — a workspace settings window, a business-hours editor,
+an appearance pane, a dark analytics dashboard and four iOS screens — using only the system's own
+tokens and components. [DESIGN-LANGUAGE.md](DESIGN-LANGUAGE.md) is the close read behind them: how
+the staging, structure, type, colour, elevation, controls and charts of those references work, and
+what each rule maps to here.
+
+Each one is staged the way the references stage themselves: a single rounded window, or a row of
+devices, floating on a flat grey ground. `components/frames/` holds that staging — `ScreenCanvas`,
+`WindowFrame`, `PhoneFrame` and the settings nav that three of the windows share.
+
+Appearance is scoped rather than global: `.appearance-light` and `.appearance-dark` re-declare the
+semantic layer on any subtree, so a light window and a dark one can sit side by side on the same
+page, and a window keeps its own appearance whatever the app around it is set to.
 
 ## Getting started
 
@@ -77,6 +94,7 @@ app/(app)/        routes, all inside the app shell
 components/ui/    primitives, built on react-aria-components
 components/charts/ SVG charts — no charting dependency
 components/shell/ sidebar, page header, appearance toggle
+components/frames/ window, phone and settings-nav staging for /screens
 styles/           theme.css (generated), typography.css, globals.css
 scripts/          the token generator and its OKLCH colour maths
 data/             sample data for the templates
@@ -86,8 +104,9 @@ data/             sample data for the templates
 
 Written directly in SVG rather than pulled from a charting library, so the visual language — stroke
 weights, corner radii, round caps, tooltip chrome — matches the rest of the system exactly. Area
-(with stacking), bar (with a capacity track), combo (dual axis), funnel, gauge, donut, activity
-rings, bar list, heatmap, sparkline. All theme-aware and keyboard-reachable.
+(with stacking, an optional line-only mode and either even or rounded axis ticks), bar (with a
+capacity track), grouped bar (period over period), combo (dual axis), funnel, gauge, donut,
+activity rings, bar list, heatmap, sparkline. All theme-aware and keyboard-reachable.
 
 ## Accessibility
 
